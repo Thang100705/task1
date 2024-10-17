@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Change Text Color</title>
+  <style>
+    body {
+      text-align: center;
+    }
+
+    h1 {
+      color: black;
+      /* Màu chữ ban đầu */
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <h1 id="text">NGUYỄN ĐỨC THẮNG</h1>
+  <button id="changeColorBtn">Random màu</button>
+
+  <script>
+
+    document.getElementById('changeColorBtn').addEventListener('click', function () {
+      const textElement = document.getElementById('text');
+      textElement.style.color = getRandomColor();
+    });
+
+    function getRandomColor() {
+      const letters = '0123456789ABCDEF';
+      let color = '#';
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+  </script>
+  <script>
+    document.onkeydown = function (e) {
+      // Chặn F12
+      if (e.keyCode === 123) {
+        return false;
+      }
+      // Chặn Ctrl + Shift + I
+      if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i')) {
+        return false;
+      }
+      // Chặn Ctrl + U (Xem mã nguồn)
+      if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
+        return false;
+      }
+      // Chặn Ctrl + Shift + J (Mở console)
+      if (e.ctrlKey && e.shiftKey && (e.key === 'J' || e.key === 'j')) {
+        return false;
+      }
+      // Chặn Ctrl + Shift + C (Chọn phần tử)
+      if (e.ctrlKey && e.shiftKey && (e.key === 'C' || e.key === 'c')) {
+        return false;
+      }
+    };
+
+    // Chỉ chặn chuột phải
+    document.oncontextmenu = function () {
+      return false;
+    };
+
+
+
+
+  </script>
+</body>
+
+</html>

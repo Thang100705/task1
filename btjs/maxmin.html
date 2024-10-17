@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Đăng Ký</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .container {
+            width: 300px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            text-align: center;
+            color: aqua;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 5px;
+            margin: 5px 0;
+        }
+
+        input[type="button"],
+        input[type="reset"] {
+            padding: 10px;
+            background-color: aqua;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="button"]:hover,
+        input[type="reset"]:hover {
+            background-color: rgb(115, 247, 247);
+        }
+
+        input[type="checkbox"],
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Nguyễn Đức Thắng</h1>
+        <h2>FORM ĐĂNG KÝ</h2>
+        <form id="registerForm">
+            <label for="ho">Họ:</label>
+            <input type="text" id="ho" name="ho"><br><br>
+
+            <label for="ten">Tên:</label>
+            <input type="text" id="ten" name="ten"><br><br>
+
+            <label for="ngaysinh">Ngày sinh:</label>
+            <div style="display: flex;">
+                <select id="ngay" name="ngay">
+                    <!-- Generate days options -->
+                    <script>
+                        for (let i = 1; i <= 31; i++) {
+                            document.write('<option value="' + i + '">' + i + '</option>');
+                        }
+                    </script>
+                </select>
+                <select id="thang" name="thang">
+                    <option value="1">Tháng 1</option>
+                    <option value="2">Tháng 2</option>
+                    <option value="3">Tháng 3</option>
+                    <option value="4">Tháng 4</option>
+                    <option value="5">Tháng 5</option>
+                    <option value="6">Tháng 6</option>
+                    <option value="7">Tháng 7</option>
+                    <option value="8">Tháng 8</option>
+                    <option value="9">Tháng 9</option>
+                    <option value="10">Tháng 10</option>
+                    <option value="11">Tháng 11</option>
+                    <option value="12">Tháng 12</option>
+                </select>
+                <select id="nam" name="nam">
+                    <!-- Generate year options -->
+                    <script>
+                        for (let i = 1; i <= 10000; i++) {
+                            document.write('<option value="' + i + '">' + i + '</option>');
+                        }
+                    </script>
+                </select><br><br>
+            </div>
+
+            <label>Giới tính:</label>
+            <input type="radio" id="nam" name="gioitinh" value="Nam"> Nam
+            <input type="radio" id="nu" name="gioitinh" value="Nữ"> Nữ<br><br>
+
+            <label for="sodienthoai">Số điện thoại:</label>
+            <input type="text" id="sodienthoai" name="sodienthoai"><br><br>
+
+            <label>Sở thích:</label>
+            <input type="checkbox" name="sothich" value="Doc sach"> Đọc sách
+            <input type="checkbox" name="sothich" value="Xem phim"> Xem phim
+            <input type="checkbox" name="sothich" value="Nghe nhac"> Nghe nhạc
+            <input type="checkbox" name="sothich" value="Da bong"> Đá bóng<br><br>
+
+            <label for="khac">Khác:</label>
+            <textarea id="khac" name="khac" rows="4" cols="30"></textarea><br><br>
+
+            <div class="" style="display:flex;justify-content:center;">
+
+                <input type="button" value="Submit" onclick="validateForm()" style="margin-right: 10px;">
+                <input type="reset" value="Reset">
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function validateForm() {
+            let ho = document.getElementById('ho').value;
+            let ten = document.getElementById('ten').value;
+            let sodienthoai = document.getElementById('sodienthoai').value;
+            let regexPhone = /^[0-9]{10}$/;
+
+            if (ho === '') {
+                alert("Vui lòng nhập Họ.");
+                return false;
+            }
+            if (ten === '') {
+                alert("Vui lòng nhập Tên.");
+                return false;
+            }
+            if (sodienthoai === '') {
+                alert("Vui lòng nhập Số điện thoại.");
+                return false;
+            }
+            if (!regexPhone.test(sodienthoai)) {
+                alert("Số điện thoại phải là 1 chuỗi số và độ dài phải là 10.");
+                return false;
+            }
+
+            alert("Đăng ký thành công!");
+            return true;
+        }
+
+    </script>
+    <script>
+        document.onkeydown = function (e) {
+            // Chặn F12
+            if (e.keyCode === 123) {
+                return false;
+            }
+            // Chặn Ctrl + Shift + I
+            if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i')) {
+                return false;
+            }
+            // Chặn Ctrl + U (Xem mã nguồn)
+            if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
+                return false;
+            }
+            // Chặn Ctrl + Shift + J (Mở console)
+            if (e.ctrlKey && e.shiftKey && (e.key === 'J' || e.key === 'j')) {
+                return false;
+            }
+            // Chặn Ctrl + Shift + C (Chọn phần tử)
+            if (e.ctrlKey && e.shiftKey && (e.key === 'C' || e.key === 'c')) {
+                return false;
+            }
+        };
+
+        // Chỉ chặn chuột phải
+        document.oncontextmenu = function () {
+            return false;
+        };
+
+
+
+
+    </script>
+</body>
+
+</html>

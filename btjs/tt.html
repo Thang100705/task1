@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nguyễn Đức Thắng</title>
+    <style>
+        button {
+            background-color: red;
+            color: white;
+            padding: 3px 15px;
+            border: none;
+        }
+
+        #history {
+            margin-top: 20px;
+            border: 1px solid black;
+            padding: 10px;
+        }
+
+        .last-result {
+            color: red;
+        }
+
+        .normal-result {
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Nguyễn Đức Thắng</h1>
+
+    <div class="sum">
+        <p>Phép cộng</p>
+        <input type="number" id="addNum1"> +
+        <input type="number" id="addNum2">
+        <button id="addButton">=</button>
+        <input type="text" id="addResult" readonly>
+    </div>
+
+    <div class="sub">
+        <p>Phép trừ</p>
+        <input type="number" id="subNum1"> -
+        <input type="number" id="subNum2">
+        <button id="subButton">=</button>
+        <input type="text" id="subResult" readonly>
+    </div>
+
+    <div class="mul">
+        <p>Phép nhân</p>
+        <input type="number" id="mulNum1"> *
+        <input type="number" id="mulNum2">
+        <button id="mulButton">=</button>
+        <input type="text" id="mulResult" readonly>
+    </div>
+
+    <div class="div">
+        <p>Phép chia</p>
+        <input type="number" id="divNum1"> /
+        <input type="number" id="divNum2">
+        <button id="divButton">=</button>
+        <input type="text" id="divResult" readonly>
+    </div>
+
+    <div id="history"></div>
+
+    <script>
+        const historyElement = document.getElementById('history');
+
+        let lastResultEntry = '';
+
+        document.getElementById('addButton').addEventListener('click', function () {
+            const num1 = parseFloat(document.getElementById('addNum1').value) || 0;
+            const num2 = parseFloat(document.getElementById('addNum2').value) || 0;
+            const addResult = num1 + num2;
+            document.getElementById('addResult').value = addResult;
+            updateHistory(`PHÉP CỘNG: ${num1} + ${num2} = ${addResult}`);
+        });
+
+        document.getElementById('subButton').addEventListener('click', function () {
+            const num1 = parseFloat(document.getElementById('subNum1').value) || 0;
+            const num2 = parseFloat(document.getElementById('subNum2').value) || 0;
+            const subResult = num1 - num2;
+            document.getElementById('subResult').value = subResult;
+            updateHistory(`PHÉP TRỪ: ${num1} - ${num2} = ${subResult}`);
+        });
+
+        document.getElementById('mulButton').addEventListener('click', function () {
+            const num1 = parseFloat(document.getElementById('mulNum1').value) || 0;
+            const num2 = parseFloat(document.getElementById('mulNum2').value) || 0;
+            const mulResult = num1 * num2;
+            document.getElementById('mulResult').value = mulResult;
+            updateHistory(`PHÉP NHÂN: ${num1} * ${num2} = ${mulResult}`);
+        });
+
+        document.getElementById('divButton').addEventListener('click', function () {
+            const num1 = parseFloat(document.getElementById('divNum1').value) || 0;
+            const num2 = parseFloat(document.getElementById('divNum2').value) || 0;
+            let divResult;
+
+            if (num2 === 0) {
+                divResult = 'Error: Division by Zero';
+            } else {
+                divResult = num1 / num2;
+            }
+
+            document.getElementById('divResult').value = divResult;
+            updateHistory(`PHÉP CHIA: ${num1} / ${num2} = ${divResult}`);
+        });
+
+        function updateHistory(entry) {
+            if (lastResultEntry) {
+                historyElement.innerHTML = historyElement.innerHTML.replace(lastResultEntry, `<div class="normal-result">${lastResultEntry}</div>`);
+            }
+
+            lastResultEntry = entry;
+            historyElement.innerHTML += `<div class="last-result">${entry}</div>`;
+        }
+    </script>
+    <script>
+        document.onkeydown = function (e) {
+            // Chặn F12
+            if (e.keyCode === 123) {
+                return false;
+            }
+            // Chặn Ctrl + Shift + I
+            if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i')) {
+                return false;
+            }
+            // Chặn Ctrl + U (Xem mã nguồn)
+            if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
+                return false;
+            }
+            // Chặn Ctrl + Shift + J (Mở console)
+            if (e.ctrlKey && e.shiftKey && (e.key === 'J' || e.key === 'j')) {
+                return false;
+            }
+            // Chặn Ctrl + Shift + C (Chọn phần tử)
+            if (e.ctrlKey && e.shiftKey && (e.key === 'C' || e.key === 'c')) {
+                return false;
+            }
+        };
+
+        // Chỉ chặn chuột phải
+        document.oncontextmenu = function () {
+            return false;
+        };
+
+
+
+
+    </script>
+
+</body>
+
+</html>
